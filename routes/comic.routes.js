@@ -4,17 +4,16 @@ const Comic = require('../models/Comic.model')
 
 // const uploaderConfig = require('./../config/uploader.config')
 
+
 // CREATE COMIC
 router.post('/create', (req, res, next) => {
 
-    const { title, number, pages, cover, forSale } = req.body //????
-
-    // const owner = req.session.currentUser._id
-
+    const { user_id: owner } = req.payload
+    
     Comic
-        .create({ title, number, pages, cover, forSale })
+        .create({ ...req.body, owner })
         .then(() => res.status(200))
-        .catch(error => next(new Error(error)))
+        .catch(error => res.status(500).json(error))
 })
 
 
@@ -25,19 +24,20 @@ router.get('/allComics', (req, res, next) => {
     Comic
         .find()
         .then(comics => res.json(comics))
-        .catch(error => next(new Error(error)))
+        .catch(error => res.status(500).json(error))
+
 })
 
 
 // MY COMICS
 router.get('/my-comics', (req, res, next) => {
 
-    const { _id: owner } = 1234
+    const { user_id: owner } = req.payload
 
     Comic
         .find({ owner })
         .then(comics => res.json(comics))
-        .catch(error => next(new Error(error)))
+        .catch(error => res.status(500).json(error))
 })
 
 
@@ -49,7 +49,7 @@ router.get('/:comic_id/details', (req, res, next) => {
     Comic
         .findById(comic_id)
         .then(comic => res.json(comic))
-        .catch(error => next(new Error(error)))
+        .catch(error => res.status(500).json(error))
 })
 
 
@@ -62,7 +62,7 @@ router.put('/:comic_id/edit', (req, res, next) => {
     Comic
         .findByIdAndUpdate(comic_id, { title, number, pages, cover })
         .then(() => res.status(200))
-        .catch(error => next(new Error(error)))
+        .catch(error => res.status(500).json(error))
 })
 
 
@@ -74,7 +74,7 @@ router.delete('/:comic_id/delete', (req, res, next) => {
     Comic
         .findByIdAndDelete(comic_id)
         .then(() => res.status(200))
-        .catch(error => next(new Error(error)))
+        .catch(error => res.status(500).json(error))
 })
 
 
@@ -87,7 +87,8 @@ router.put('/:comic_id/forSale', (req, res, next) => {
     Comic
         .findByIdAndUpdate(comic_id, { forSale })
         .then(() => res.status(200))
-        .catch(error => next(new Error(error)))
+        .catch(error => res.status(500).json(error))
+
 })
 
 
@@ -101,7 +102,7 @@ router.put('/:comic_id/exchange', (req, res, next) => {
     Comic
         .findByIdAndUpdate(comic_id, { forSale: false, owner })
         .then(() => res.status(200))
-        .catch(error => next(new Error(error)))
+        .catch(error => res.status(500).json(error))
 })
 
 

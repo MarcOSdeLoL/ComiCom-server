@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken")
 
 const { isAuthenticated } = require("../middlewares/jwt.middleware")
 
-
 const router = express.Router()
 const saltRounds = 10
 
@@ -48,10 +47,6 @@ router.post('/signup', (req, res, next) => {
             res.status(500).json({ message: "Internal Server Error" })
         })
 })
-
-
-
-
 
 
 router.post('/login', (req, res, next) => {

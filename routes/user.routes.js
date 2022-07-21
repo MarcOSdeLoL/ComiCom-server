@@ -26,7 +26,7 @@ router.get('/:user_id/details', (req, res, next) => {
 //EDIT USER
 router.put('/:user_id/edit', (req, res, next) => {
 
-    const { username, email, password, avatar, description } = req.body
+    const { username, email, password, avatar, description } = req.payload
 
     const { user_id } = req.params
 
