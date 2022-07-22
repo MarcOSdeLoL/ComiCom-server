@@ -1,15 +1,17 @@
 const router = require('express').Router()
 
+const { isAuthenticated } = require('../middlewares/jwt.middleware')
+
 const Comic = require('../models/Comic.model')
 
 // const uploaderConfig = require('./../config/uploader.config')
 
 
 // CREATE COMIC
-router.post('/create', (req, res, next) => {
+router.post('/create', isAuthenticated, (req, res, next) => {
 
-    const { user_id: owner } = req.payload
-    
+    const { _id: owner } = req.payload
+
     Comic
         .create({ ...req.body, owner })
         .then(() => res.status(200))
@@ -18,19 +20,17 @@ router.post('/create', (req, res, next) => {
 
 
 // COMICS LIST
-
 router.get('/allComics', (req, res, next) => {
 
     Comic
         .find()
         .then(comics => res.json(comics))
         .catch(error => res.status(500).json(error))
-
 })
 
 
 // MY COMICS
-router.get('/my-comics', (req, res, next) => {
+router.get('/my-comics', isAuthenticated, (req, res, next) => {
 
     const { user_id: owner } = req.payload
 

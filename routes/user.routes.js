@@ -1,5 +1,6 @@
 const router = require("express").Router()
 
+const { isAuthenticated } = require("../middlewares/jwt.middleware")
 const User = require("../models/User.model")
 
 //ALL USERS
@@ -24,33 +25,33 @@ router.get('/:user_id/details', (req, res, next) => {
 })
 
 //EDIT USER
-router.put('/:user_id/edit', (req, res, next) => {
+// router.put('/:user_id/edit', (req, res, next) => {
 
-    const { username, email, password, avatar, description } = req.payload
+//     const { username, email, password, avatar, description } = req.body
 
-    const { user_id } = req.params
+//     const { user_id } = req.params
 
-    User
-        .findByIdAndUpdate(user_id, { username, email, password, avatar, description })
-        .then(() => res.status(200))
-        .catch(error => console.log(error))
-})
+//     User
+//         .findByIdAndUpdate(user_id, { username, email, password, avatar, description })
+//         .then(() => res.status(200))
+//         .catch(error => console.log(error))
+// })
 
 //DELETE USER
-router.delete('/:user_id/delete', (req, res, next) => {
+// router.delete('/:user_id/delete', (req, res, next) => {
 
-    const { user_id } = req.params
+//     const { user_id } = req.params
 
-    User
-        .findByIdAndDelete(user_id)
-        .then(() => res.status(200))
-        .catch(error => next(new Error(error)))
-})
+//     User
+//         .findByIdAndDelete(user_id)
+//         .then(() => res.status(200))
+//         .catch(error => next(new Error(error)))
+// })
 
 // MY FAVOURITE //PENDIENTE DE REVISIÓN POR LO DEL TOKEN
-router.post('/:comic_id/favComics', (req, res, next) => {
+router.put('/:comic_id/favComics', isAuthenticated, (req, res, next) => {
 
-    const user_id = 1234
+    const { _id: user_id } = req.payload
     const { comic_id } = req.params
 
     User
