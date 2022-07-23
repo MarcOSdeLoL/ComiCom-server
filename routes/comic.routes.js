@@ -42,10 +42,10 @@ router.get('/my-comics', isAuthenticated, (req, res, next) => {
 
 
 // COMIC DETAILS
-router.get('/:comic_id/details', (req, res, next) => {
+router.get('/:comic_id/details', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
-
+console.log('hola desde atras', comic_id)
     Comic
         .findById(comic_id)
         .then(comic => res.json(comic))
@@ -54,7 +54,7 @@ router.get('/:comic_id/details', (req, res, next) => {
 
 
 // COMIC EDITION
-router.put('/:comic_id/edit', (req, res, next) => {
+router.put('/:comic_id/edit', isAuthenticated, (req, res, next) => {
 
     const { title, number, pages, cover } = req.body
     const { comic_id } = req.params
@@ -67,7 +67,7 @@ router.put('/:comic_id/edit', (req, res, next) => {
 
 
 // DELETE COMIC
-router.delete('/:comic_id/delete', (req, res, next) => {
+router.delete('/:comic_id/delete', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
 
@@ -79,7 +79,7 @@ router.delete('/:comic_id/delete', (req, res, next) => {
 
 
 //CHANGE A COMIC FOR SALE
-router.put('/:comic_id/forSale', (req, res, next) => {
+router.put('/:comic_id/forSale', isAuthenticated, (req, res, next) => {
 
     const { forSale } = req.body
     const { comic_id } = req.params
@@ -94,7 +94,7 @@ router.put('/:comic_id/forSale', (req, res, next) => {
 
 //BUY A COMIC
 //Change the owner-PENDIENTE DE COMPLETAR
-router.put('/:comic_id/exchange', (req, res, next) => {
+router.put('/:comic_id/exchange', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
     const { owner } = req.body

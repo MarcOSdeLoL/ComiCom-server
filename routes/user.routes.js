@@ -13,7 +13,7 @@ router.get('/allUsers', (req, res, next) => {
 })
 
 //USER DETAILS
-router.get('/:user_id/details', (req, res, next) => {
+router.get('/:user_id/details', isAuthenticated, (req, res, next) => {
 
     const { user_id } = req.params
 

@@ -16,6 +16,10 @@ const comicSchema = new Schema(
             type: Number,
             required: [true, 'Number of pages is required.'],
         },
+        // description: {
+        //     type: String
+        //     default: ''
+        // }
         cover: {
             type: String,
             default: ''
