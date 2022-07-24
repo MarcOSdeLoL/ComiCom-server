@@ -45,7 +45,6 @@ router.get('/my-comics', isAuthenticated, (req, res, next) => {
 router.get('/:comic_id/details', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
-console.log('hola desde atras', comic_id)
     Comic
         .findById(comic_id)
         .then(comic => res.json(comic))
@@ -57,11 +56,16 @@ console.log('hola desde atras', comic_id)
 router.put('/:comic_id/edit', isAuthenticated, (req, res, next) => {
 
     const { title, number, pages, cover } = req.body
+
+    console.log('este es el req.body----------------', req.body)
+    
     const { comic_id } = req.params
 
     Comic
         .findByIdAndUpdate(comic_id, { title, number, pages, cover })
-        .then(() => res.status(200))
+        .then(() => console.log('este es el comic_id---------', comic_id )
+        // res.status(200)
+        )
         .catch(error => res.status(500).json(error))
 })
 
