@@ -55,7 +55,7 @@ router.put('/:comic_id/favComics', isAuthenticated, (req, res, next) => {
     const { comic_id } = req.params
 
     User
-        .findByIdAndUpdate(user_id, { $push: { favComics: comic_id } })
+        .findByIdAndUpdate(user_id, { $addToSet: { favComics: comic_id } })
         .then(() => res.json())
         .catch(error => next(new Error(error)))
 })

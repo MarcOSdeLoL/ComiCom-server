@@ -14,13 +14,13 @@ router.post('/create', isAuthenticated, (req, res, next) => {
 
     Comic
         .create({ ...req.body, owner })
-        .then(() => res.status(200))
+        .then(() => res.status(200).json('created'))
         .catch(error => res.status(500).json(error))
 })
 
 
 // COMICS LIST
-router.get('/allComics', (req, res, next) => {
+router.get('/allComics', isAuthenticated, (req, res, next) => {
 
     Comic
         .find()
@@ -57,14 +57,12 @@ router.put('/:comic_id/edit', isAuthenticated, (req, res, next) => {
 
     const { title, number, pages, cover } = req.body
 
-    console.log('este es el req.body----------------', req.body)
-    
     const { comic_id } = req.params
 
     Comic
         .findByIdAndUpdate(comic_id, { title, number, pages, cover })
-        .then(() => console.log('este es el comic_id---------', comic_id )
-        // res.status(200)
+        .then(() => console.log('este es el comic_id---------', comic_id)
+            // res.status(200)
         )
         .catch(error => res.status(500).json(error))
 })
@@ -77,7 +75,7 @@ router.delete('/:comic_id/delete', isAuthenticated, (req, res, next) => {
 
     Comic
         .findByIdAndDelete(comic_id)
-        .then(() => res.status(200))
+        .then(() => res.status(200).json('ok'))
         .catch(error => res.status(500).json(error))
 })
 
