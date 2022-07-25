@@ -61,9 +61,7 @@ router.put('/:comic_id/edit', isAuthenticated, (req, res, next) => {
 
     Comic
         .findByIdAndUpdate(comic_id, { title, number, pages, cover })
-        .then(() => console.log('este es el comic_id---------', comic_id)
-            // res.status(200)
-        )
+        .then(() => res.status(200),json('ok'))
         .catch(error => res.status(500).json(error))
 })
 

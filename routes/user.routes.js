@@ -48,7 +48,7 @@ router.get('/:user_id/details', isAuthenticated, (req, res, next) => {
 //         .catch(error => next(new Error(error)))
 // })
 
-// MY FAVOURITE //PENDIENTE DE REVISIÓN POR LO DEL TOKEN
+// MY FAVOURITES
 router.put('/:comic_id/favComics', isAuthenticated, (req, res, next) => {
 
     const { _id: user_id } = req.payload
