@@ -82,7 +82,6 @@ router.delete('/:comic_id/delete', isAuthenticated, (req, res, next) => {
 router.put('/:comic_id/setAvailable', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
-console.log('---------------------------------------------' , req.params)
     Comic
         .findByIdAndUpdate(comic_id, { forSale: true })
         .then(() => res.status(200).json())
@@ -94,6 +93,9 @@ console.log('---------------------------------------------' , req.params)
 router.put('/:comic_id/setUnavailable', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
+
+    console.log('---------------------------------------------', req.params)
+
 
     Comic
         .findByIdAndUpdate(comic_id, { forSale: false })
