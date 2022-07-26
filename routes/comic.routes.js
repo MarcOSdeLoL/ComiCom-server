@@ -61,7 +61,7 @@ router.put('/:comic_id/edit', isAuthenticated, (req, res, next) => {
 
     Comic
         .findByIdAndUpdate(comic_id, { title, number, pages, cover })
-        .then(() => res.status(200),json('ok'))
+        .then(() => res.status(200).json('ok'))
         .catch(error => res.status(500).json(error))
 })
 
@@ -78,30 +78,30 @@ router.delete('/:comic_id/delete', isAuthenticated, (req, res, next) => {
 })
 
 
-//CHANGE A COMIC FOR SALE
-router.put('/:comic_id/forSale', isAuthenticated, (req, res, next) => {
+//CHANGE A COMIC INTO ADOPTABLE
+router.put('/:comic_id/setAvailable', isAuthenticated, (req, res, next) => {
 
     const { forSale } = req.body
     const { comic_id } = req.params
 
     Comic
-        .findByIdAndUpdate(comic_id, { forSale })
-        .then(() => res.status(200))
+        .findByIdAndUpdate(comic_id, { forSale: true })
+        .then(() => res.status(200).json('ok'))
         .catch(error => res.status(500).json(error))
 
 })
 
 
-//BUY A COMIC
+//ADOPT A COMIC
 //Change the owner-PENDIENTE DE COMPLETAR
-router.put('/:comic_id/exchange', isAuthenticated, (req, res, next) => {
+router.put('/:comic_id/adopt', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
-    const { owner } = req.body
+    const { _id: owner } = req.payload
 
     Comic
         .findByIdAndUpdate(comic_id, { forSale: false, owner })
-        .then(() => res.status(200))
+        .then(() => res.status(200).json('ok'))
         .catch(error => res.status(500).json(error))
 })
 

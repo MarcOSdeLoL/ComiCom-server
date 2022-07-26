@@ -91,7 +91,6 @@ router.post('/login', (req, res, next) => {
 
 router.get('/verify', isAuthenticated, (req, res) => {
 
-    console.log('WE ARE IN THE ROUTE AND THE TOKEN WAS RIGHT. THE PAYLOAD IS', req.payload)
 
     setTimeout(() => {
         res.status(200).json(req.payload)
