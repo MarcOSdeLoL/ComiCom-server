@@ -32,7 +32,7 @@ router.get('/allComics', isAuthenticated, (req, res, next) => {
 // MY COMICS
 router.get('/my-comics', isAuthenticated, (req, res, next) => {
 
-    const { user_id: owner } = req.payload
+    const { _id: owner } = req.payload
 
     Comic
         .find({ owner })
@@ -81,12 +81,23 @@ router.delete('/:comic_id/delete', isAuthenticated, (req, res, next) => {
 //CHANGE A COMIC INTO ADOPTABLE
 router.put('/:comic_id/setAvailable', isAuthenticated, (req, res, next) => {
 
-    const { forSale } = req.body
+    const { comic_id } = req.params
+console.log('---------------------------------------------' , req.params)
+    Comic
+        .findByIdAndUpdate(comic_id, { forSale: true })
+        .then(() => res.status(200).json())
+        .catch(error => res.status(500).json(error))
+
+})
+
+//CHANGE A COMIC INTO UNADOPTABLE
+router.put('/:comic_id/setUnavailable', isAuthenticated, (req, res, next) => {
+
     const { comic_id } = req.params
 
     Comic
-        .findByIdAndUpdate(comic_id, { forSale: true })
-        .then(() => res.status(200).json('ok'))
+        .findByIdAndUpdate(comic_id, { forSale: false })
+        .then(() => res.status(200).json())
         .catch(error => res.status(500).json(error))
 
 })

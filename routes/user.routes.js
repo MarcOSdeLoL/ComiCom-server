@@ -48,7 +48,7 @@ router.get('/:user_id/details', isAuthenticated, (req, res, next) => {
 //         .catch(error => next(new Error(error)))
 // })
 
-// MY FAVOURITES
+// ADD TO MY FAVOURITES
 router.put('/:comic_id/favComics', isAuthenticated, (req, res, next) => {
 
     const { _id: user_id } = req.payload
@@ -59,5 +59,20 @@ router.put('/:comic_id/favComics', isAuthenticated, (req, res, next) => {
         .then(() => res.json())
         .catch(error => next(new Error(error)))
 })
+
+// READ MY FAVOURITES
+router.get('/my-favComics', isAuthenticated, (req, res, next) => {
+
+    const { _id: user_id } = req.payload
+
+    User
+        .find(user_id)
+        .populate('favComics')
+        .then(user => res.json(user.favComics))
+        .catch(error => next(new Error(error)))
+})
+
+
+
 
 module.exports = router
