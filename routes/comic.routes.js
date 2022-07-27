@@ -89,24 +89,20 @@ router.put('/:comic_id/setAvailable', isAuthenticated, (req, res, next) => {
 
 })
 
+
 //CHANGE A COMIC INTO UNADOPTABLE
 router.put('/:comic_id/setUnavailable', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
 
-    console.log('---------------------------------------------', req.params)
-
-
     Comic
         .findByIdAndUpdate(comic_id, { forSale: false })
         .then(() => res.status(200).json())
         .catch(error => res.status(500).json(error))
-
 })
 
 
 //ADOPT A COMIC
-//Change the owner-PENDIENTE DE COMPLETAR
 router.put('/:comic_id/adopt', isAuthenticated, (req, res, next) => {
 
     const { comic_id } = req.params
@@ -118,51 +114,4 @@ router.put('/:comic_id/adopt', isAuthenticated, (req, res, next) => {
         .catch(error => res.status(500).json(error))
 })
 
-
 module.exports = router
-
-
-
-//allComics ALTERNATIVE
-// router.get('/allComics', (req, res, next) => {
-
-//     Comic
-//         .find()
-//         // .populate('owner')
-//         .then(comics => {
-
-//             let allInfo = comics.map(comic => {
-
-//                 const ownerID = comic.owner._id.toString()
-
-//                 return {
-//                     isOwner: ownerID === req.session.currentUser._id,
-//                     comic
-//                 }
-//             })
-
-//             return allInfo
-//         })
-//         // .then(allInfo => res.send(comics))
-//         .catch(error => next(new Error(error)))
-// })
-
-
-//ALLCOMICS ALTERNATIVE
-// router.get('/:comic_id/details', (req, res, next) => {
-
-//     const { comic_id } = req.params
-
-//     const promises = [
-//         Comic.findById(comic_id).populate('owner'),
-//     //     Comment.find({ Comic: comic_id })
-//     //         .populate('owner')
-//     // ]
-
-//     Promise
-//         .all(promises)
-//         .then(([comicData, commentsData]) => {
-//             res.render('recipes/details-recipe', { comicData, commentsData })
-//         })
-//         .catch(error => next(new Error(error)))
-// })
