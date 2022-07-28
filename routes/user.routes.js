@@ -12,6 +12,19 @@ router.get('/allUsers', (req, res, next) => {
         .catch(error => next(new Error(error)))
 })
 
+//EDIT USER
+router.put('/edit/:user_id', (req, res, next) => {
+
+    const { username, email, password, avatar, description } = req.body
+
+    const { user_id } = req.params
+
+    User
+        .findByIdAndUpdate(user_id, { username, email, password, avatar, description })
+        .then(() => res.status(200).json('ok'))
+        .catch(error => console.log(error))
+})
+
 //USER DETAILS
 router.get('/:user_id/details', isAuthenticated, (req, res, next) => {
 
@@ -24,18 +37,6 @@ router.get('/:user_id/details', isAuthenticated, (req, res, next) => {
         .catch(error => next(new Error(error)))
 })
 
-//EDIT USER
-// router.put('/:user_id/edit', (req, res, next) => {
-
-//     const { username, email, password, avatar, description } = req.body
-
-//     const { user_id } = req.params
-
-//     User
-//         .findByIdAndUpdate(user_id, { username, email, password, avatar, description })
-//         .then(() => res.status(200))
-//         .catch(error => console.log(error))
-// })
 
 //DELETE USER
 // router.delete('/:user_id/delete', (req, res, next) => {

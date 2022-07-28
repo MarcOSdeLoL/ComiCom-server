@@ -19,7 +19,7 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
-      default: ''
+      default: 'https://res.cloudinary.com/dozh44nc3/image/upload/v1659015898/spider-man-eyes_cuyfps.png'
     },
     description: {
       type: String,

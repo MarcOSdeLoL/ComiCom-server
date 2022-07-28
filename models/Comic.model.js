@@ -22,7 +22,7 @@ const comicSchema = new Schema(
         // }
         cover: {
             type: String,
-            default: ''
+            default: 'https://res.cloudinary.com/dozh44nc3/image/upload/v1659022373/la-patrulla-x-num-140_neqyms.jpg'
         },
         owner: {
             type: Schema.Types.ObjectId,
