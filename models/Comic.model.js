@@ -16,10 +16,9 @@ const comicSchema = new Schema(
             type: Number,
             required: [true, 'Number of pages is required.'],
         },
-        // description: {
-        //     type: String
-        //     default: ''
-        // }
+        description: {
+            type: String
+        },
         cover: {
             type: String,
             default: 'https://res.cloudinary.com/dozh44nc3/image/upload/v1659022373/la-patrulla-x-num-140_neqyms.jpg'

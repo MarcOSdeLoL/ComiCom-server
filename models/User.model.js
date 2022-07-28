@@ -23,7 +23,7 @@ const userSchema = new Schema(
     },
     description: {
       type: String,
-      default: 'User´s info is'
+      default: 'A real Comicmaniac!'
     },
     role: {
       type: String,
