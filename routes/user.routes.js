@@ -4,7 +4,7 @@ const { isAuthenticated } = require("../middlewares/jwt.middleware")
 const User = require("../models/User.model")
 
 //ALL USERS
-router.get('/allUsers', (req, res, next) => {
+router.get('/allUsers', isAuthenticated, (req, res, next) => {
 
     User
         .find()
@@ -13,7 +13,7 @@ router.get('/allUsers', (req, res, next) => {
 })
 
 //EDIT USER
-router.put('/edit/:user_id', (req, res, next) => {
+router.put('/edit/:user_id', isAuthenticated, (req, res, next) => {
 
     const { username, email, password, avatar, description } = req.body
 
