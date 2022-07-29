@@ -30,13 +30,18 @@ router.get('/allComics', isAuthenticated, (req, res, next) => {
 
 
 // HOST COMICS
-router.get('/allHostComics', (req, res) => {
+router.get('/allHostComics/:host_id', (req, res) => {
 
-    const { host_id } = req.body
+    const { host_id } = req.params
+
+    console.log('444444444444', req.body)
 
     Comic
         .find({ owner: host_id })
-        .then(comics => res.json(comics))
+        .then(comics => {
+            console.log('=============================', comics)
+            res.json(comics)
+        })
         .catch(err => console.log(err))
 })
 
